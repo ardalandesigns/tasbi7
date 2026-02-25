@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="ku" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#f59e0b">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Tasbi7 Online">
+    <title>Tasbi7 Online</title>
+    
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23f59e0b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><circle cx='12' cy='12' r='9' stroke-dasharray='0.1 4' stroke-width='3' /><path d='M12 3V1' /><path d='M10 1h4' /></svg>">
+    <link rel="apple-touch-icon" href="https://img.icons8.com/fluency/192/tasbih.png">
+    <link rel="manifest" href="data:application/manifest+json;base64,ewogICJuYW1lIjogItiq25bYs9io24zYrdiyINiV25bZhdit2LLYp9mGIiwKICAic2hvcnRfbmFtZSI6ICJdhdiq25bYs9io24zYrdmIIiwKICAiaWNvbnMiOiBbCiAgICB7CiAgICAgICJzcmMiOiAiaHR0cHM6Ly9pbWcuaWNvbnM4LmNvbS9mbHVlbmN5LzE5Mi90YXNiaWgucG5nIiwKICAgICAgInNpemVzIjogIjE5MngxOTIiLAogICAgICAidHlwZSI6ICJpbWFnZS9wbmciCiAgICB9LAogICAgewogICAgICAic3JjIjogImh0dHBzOi8vaW1nLmljb25zOC5jb20vZmx1ZW5jeS81MTIvdGFzYmloLnBuZyIsCiAgICAgICJzaXplcyI6ICI1MTJ4NTEyIiwKICAgICAgInR5cGUiOiAiaW1hZ2UvcG5nIgogICAgfQogIF0sCiAgInN0YXJ0X3VybCI6ICIuIiwKICAiZGlzcGxheSI6ICJzdGFuZGFsb25lIiwKICAiYmFja2dyb3VuZF9jb2xvciI6ICIjZmZmZmZmIiwKICAidGhlbWVfY29sb3IiOiAiI2Y1OWUwYiIKfQ==">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <script>
+        document.addEventListener('contextmenu', event => event.preventDefault());
+        document.onkeydown = function(e) {
+            if(e.keyCode == 123) return false;
+            if(e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) return false;
+            if(e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) return false;
+            if(e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) return false;
+        }
+    </script>
+
+    <style>
+        body { font-family: 'Noto Sans Arabic', sans-serif; -webkit-tap-highlight-color: transparent; }
+        @keyframes floatUp { 0% { transform: translate(-50%, -50%) scale(0.5); opacity: 1; } 100% { transform: translate(-50%, -120px) scale(1.5); opacity: 0; } }
+        .animate-floatUp { animation: floatUp 0.8s ease-out forwards; pointer-events: none; }
+        @keyframes scaleUp { from { transform: scale(0.9); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+        .animate-scaleUp { animation: scaleUp 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .animate-fadeIn { animation: fadeIn 0.3s ease-out forwards; }
+        @keyframes slideDown { from { transform: translateY(-100%); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        .animate-slideDown { animation: slideDown 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
+        
+        /* New Glow Effect for better UI */
+        @keyframes glowPulse { 0% { box-shadow: 0 0 15px rgba(245, 158, 11, 0.2); } 50% { box-shadow: 0 0 30px rgba(245, 158, 11, 0.6); } 100% { box-shadow: 0 0 15px rgba(245, 158, 11, 0.2); } }
+        .animate-glow { animation: glowPulse 2s infinite; }
+
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        .mask-gradient { mask-image: linear-gradient(to bottom, black 90%, transparent 100%); -webkit-mask-image: linear-gradient(to bottom, black 90%, transparent 100%); }
+    </style>
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Noto Sans Arabic', 'sans-serif'] },
+                    colors: {
+                        ramadan: { 50: '#fffbeb', 100: '#fef3c7', 500: '#f59e0b', 900: '#78350f' },
+                        night: { 900: '#0f172a' }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-100">
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect, useCallback, useMemo } = React;
+
+        // --- ICONS ---
+        const Icons = {
+            Sun: (props) => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" {...props}><circle cx="12" cy="12" r="5" /><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" /></svg>,
+            Moon: (props) => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" {...props}><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" /></svg>,
+            Lantern: (props) => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" {...props}><path d="M12 2l-6 3v5c0 4 2 7 6 7s6-3 6-7V5l-6-3z" /><line x1="12" y1="17" x2="12" y2="22" /><line x1="8" y1="22" x2="16" y2="22" /><circle cx="12" cy="10" r="2" /></svg>,
+            Tasbih: (props) => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}><circle cx="12" cy="12" r="9" strokeDasharray="0.1 4" strokeWidth="3" /><path d="M12 3V1" /><path d="M10 1h4" /></svg>,
+            Bed: (props) => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" {...props}><path d="M2 4v16M2 8h18a2 2 0 0 1 2 2v10M2 17h20M6 8v9" /></svg>,
+            Heart: (props) => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" {...props}><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" /></svg>,
+            Diamond: (props) => <svg viewBox="0 0 24 24" fill="currentColor" stroke="none" {...props}><path d="M6 3h12l4 6-10 10L2 9z" /></svg>,
+            Check: (props) => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round" {...props}><polyline points="20 6 9 17 4 12" /></svg>,
+            Menu: (props) => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>,
+            Close: (props) => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" {...props}><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>,
+            Zen: (props) => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>,
+            SoundOn: (props) => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>,
+            SoundOff: (props) => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}><line x1="1" y1="1" x2="23" y2="23"></line><path d="M9 9v6a3 3 0 0 0 5.12 2.12M15 9.34V4a3 3 0 0 0-5.94-.6"></path><path d="M17 16.95A7 7 0 0 1 5 12v-2m14 0v2a7 7 0 0 1-.11 1.23"></path><line x1="12" y1="19" x2="12" y2="23"></line><line x1="8" y1="23" x2="16" y2="23"></line></svg>,
+            Vibrate: (props) => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}><path d="M22 12h-4l-3 9L9 3l-3 9H2"></path></svg>,
+            VibrateOff: (props) => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}><path d="M22 12h-4l-3 9L9 3l-3 9H2"></path><line x1="3" y1="3" x2="21" y2="21" className="text-red-500" stroke="currentColor" strokeWidth="2" /></svg>,
+            Wind: (props) => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}><path d="M9.59 4.59A2 2 0 1 1 11 8H2m10.59 11.41A2 2 0 1 0 14 16H2m15.73-8.27A2.5 2.5 0 1 1 19.5 12H2"></path></svg>,
+            Pocket: (props) => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><line x1="12" y1="11" x2="12" y2="17"></line><line x1="9" y1="14" x2="15" y2="14"></line></svg>,
+            ArrowLeft: (props) => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>,
+            Trophy: (props) => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}><path d="M8 21h8m-4-9v9m-4.8-9a6 6 0 1 1 9.6 0 6 6 0 0 1-9.6 0zM2 7l2.8 2.8a2 2 0 0 0 2.8 0L9 8m13-1l-2.8 2.8a2 2 0 0 1-2.8 0L15 8"></path></svg>,
+            Font: (props) => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}><path d="M4 7V4h16v3M9 20h6M12 4v16"/></svg>,
+            Trash: (props) => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>,
+            Bell: (props) => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>,
+            BellOff: (props) => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}><path d="M13.73 21a2 2 0 0 1-3.46 0"></path><path d="M18.63 13A17.89 17.89 0 0 1 18 8"></path><path d="M6.26 6.26A5.86 5.86 0 0 0 6 8c0 7-3 9-3 9h14"></path><path d="M18 8a6 6 0 0 0-9.33-5"></path><line x1="1" y1="1" x2="23" y2="23"></line></svg>,
+            WifiOff: (props) => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}><line x1="1" y1="1" x2="23" y2="23"></line><path d="M16.72 11.06A10.94 10.94 0 0 1 19 12.55"></path><path d="M5 12.55a10.94 10.94 0 0 1 5.17-2.39"></path><path d="M10.71 5.05A16 16 0 0 1 22.58 9"></path><path d="M1.42 9a15.91 15.91 0 0 1 4.7-2.88"></path><path d="M8.53 16.11a6 6 0 0 1 6.95 0"></path><line x1="12" y1="20" x2="12.01" y2="20"></line></svg>
+        };
+
+        // --- DATA ---
+        const INITIAL_ZIKRS = [
+            { id: 100, text: "اللَّهُمَّ لَكَ صُمْتُ وَعَلَى رِزْقِكَ أَفْطَرْتُ", count: 0, target: 1, category: 'ramadan', virtue: "خوایە بۆ تۆ بەڕۆژوو بووم و بە ڕۆزی تۆ ڕۆژووم شکاند.", color: "from-emerald-500 to-green-700" },
+            { id: 102, text: "أَشْهَدُ أَنْ لَا إِلَهَ إِلَّا اللَّهُ، أَسْتَغْفِرُ اللَّهَ، أَسْأَلُكَ الْجَنَّةَ، وَأَعُوذُ بِكَ مِنَ النَّارِ", count: 0, target: 100, category: 'ramadan', virtue: "زیکرێکی زۆر باش بۆ ڕۆژانی ڕەمەزان", color: "from-amber-400 to-orange-500" },
+            { id: 103, text: "اللَّهُمَّ إِنَّكَ عَفُوٌّ تُحِبُّ الْعَفْوَ فَاعْفُ عَنِّي", count: 0, target: 100, category: 'ramadan', virtue: "دوعای شەوانی قەدر", color: "from-indigo-500 to-purple-700" },
+            { id: 3, text: "أَصْبَحْنَا وَأَصْبَحَ الْمُلْكُ لِلَّهِ...", count: 0, target: 1, category: 'morning', virtue: "زیکری دەستپێکی بەیانیان.", color: "from-yellow-400 to-orange-500" },
+            { id: 14, text: "سُبْحَانَ اللهِ وَبِحَمْدِهِ", count: 0, target: 100, category: 'morning', virtue: "١٠٠ جار: گوناهەکانی دەسڕدرێتەوە", color: "from-amber-500 to-orange-600" },
+            { id: 22, text: "أَمْسَيْنَا وَأَمْسَى الْمُلْكُ لِلَّهِ...", count: 0, target: 1, category: 'evening', virtue: "زیکری دەستپێکی ئێواران.", color: "from-purple-500 to-indigo-700" },
+            { id: 33, text: "سُبْحَانَ اللهِ وَبِحَمْدِهِ", count: 0, target: 100, category: 'evening', virtue: "١٠٠ جار: گوناهەکان دەسڕێتەوە.", color: "from-blue-600 to-indigo-900" },
+            { id: 41, text: "سُبْحَانَ اللَّهِ (٣٣)، الْحَمْدُ لِلَّهِ (٣٣)، اللَّهُ أَكْبَرُ (٣٤)", count: 0, target: 1, category: 'sleep', virtue: "تەسبیحاتی فاتیمە", color: "from-blue-700 to-indigo-900" },
+            { id: 50, text: "اللَّهُمَّ صَلِّ عَلَى مُحَمَّدٍ وَعَلَى آلِ مُحَمَّدٍ...", count: 0, target: 100, category: 'favorites', virtue: "باشترین شێوازی صەڵاوات", color: "from-rose-400 to-pink-600" },
+            { id: 52, text: "لاَ حَوْلَ وَلاَ قُوَّةَ إِلاَّ بِاللَّهِ", count: 0, target: 100, category: 'favorites', virtue: "کەنزێکە لە کەنزەکانی بەهەشت", color: "from-cyan-500 to-blue-600" }
+        ];
+
+        const CATEGORIES = [
+          { id: 'ramadan', label: 'ڕەمەزان', icon: <Icons.Lantern className="w-5 h-5" />, fillClass: 'bg-gradient-to-t from-emerald-600 to-green-500', iconColor: 'text-emerald-100', textColor: 'text-emerald-600' },
+          { id: 'morning', label: 'بەیانیان', icon: <Icons.Sun className="w-5 h-5" />, fillClass: 'bg-gradient-to-t from-orange-500 to-yellow-400', iconColor: 'text-orange-100', textColor: 'text-orange-500' },
+          { id: 'evening', label: 'ئێواران', icon: <Icons.Moon className="w-5 h-5" />, fillClass: 'bg-gradient-to-t from-indigo-600 to-purple-500', iconColor: 'text-indigo-100', textColor: 'text-indigo-600' },
+          { id: 'sleep', label: 'خەوتن', icon: <Icons.Bed className="w-5 h-5" />, fillClass: 'bg-gradient-to-t from-blue-900 to-blue-700', iconColor: 'text-blue-100', textColor: 'text-blue-700' },
+          { id: 'favorites', label: 'دڵخواز', icon: <Icons.Heart className="w-5 h-5" />, fillClass: 'bg-gradient-to-t from-rose-600 to-pink-500', iconColor: 'text-rose-100', textColor: 'text-rose-600' },
+        ];
+
+        const InAppToast = ({ title, body, icon, onClose }) => (
+            <div className="fixed top-4 left-4 right-4 z-[200] animate-slideDown">
+                <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-2xl p-4 border border-amber-200 dark:border-amber-900 flex items-start gap-4">
+                    <div className="bg-amber-100 dark:bg-amber-900/30 p-2 rounded-full text-amber-600">{icon || <Icons.Lantern className="w-6 h-6" />}</div>
+                    <div className="flex-1">
+                        <h3 className="font-bold text-amber-600 dark:text-amber-400">{title}</h3>
+                        <p className="text-sm opacity-80 mt-1">{body}</p>
+                    </div>
+                    <button onClick={onClose}><Icons.Close className="w-5 h-5 opacity-50" /></button>
+                </div>
+            </div>
+        );
+
+        const SmartTasbihRamadan = () => {
+            const DEFAULT_STATE = {
+                activeCategory: 'ramadan',
+                zikrs: INITIAL_ZIKRS,
+                diamonds: 0,
+                quranJuz: 0, 
+                settings: { sound: true, vibration: true, notifications: false, fontSize: 1 }, 
+                dailyChallenge: { target: 1000, current: 0, text: "١٠٠٠ سەڵاوات لێ بدە", completed: false, date: new Date().toLocaleDateString() },
+                lastDate: new Date().toLocaleDateString()
+            };
+
+            const [state, setState] = useState(() => {
+                try {
+                    const saved = localStorage.getItem('smart_tasbih_ramadan_v8_final'); 
+                    const today = new Date().toLocaleDateString();
+                    let newState = { ...DEFAULT_STATE };
+
+                    if (saved) {
+                        const parsed = JSON.parse(saved);
+                        const mergedZikrs = INITIAL_ZIKRS.map(initialZikr => {
+                            const savedZikr = parsed.zikrs?.find(z => z.id === initialZikr.id);
+                            return savedZikr ? { ...initialZikr, count: savedZikr.count } : initialZikr;
+                        });
+                        newState = { ...DEFAULT_STATE, ...parsed, zikrs: mergedZikrs };
+                    }
+
+                    if (newState.lastDate !== today) {
+                        newState.zikrs = newState.zikrs.map(z => ({ ...z, count: 0 }));
+                        newState.dailyChallenge = { target: 1000, current: 0, text: "١٠٠٠ سەڵاوات لێ بدە", completed: false, date: today };
+                        newState.lastDate = today;
+                    }
+                    return newState;
+                } catch (e) { return DEFAULT_STATE; }
+            });
+
+            const [showMenu, setShowMenu] = useState(false);
+            const [isZenMode, setIsZenMode] = useState(false);
+            const [isPocketMode, setIsPocketMode] = useState(false);
+            const [time, setTime] = useState(new Date());
+            const [clicks, setClicks] = useState([]);
+            const [toast, setToast] = useState(null);
+            const [isOffline, setIsOffline] = useState(!navigator.onLine);
+
+            // Offline Detection
+            useEffect(() => {
+                const handleOnline = () => { setIsOffline(false); setToast({ title: "هێڵ گەڕایەوە", body: "ئێستا ئەپەکە بە ئۆنلاین کار دەکات", icon: <Icons.Check className="w-6 h-6"/> }); setTimeout(() => setToast(null), 3000); };
+                const handleOffline = () => { setIsOffline(true); setToast({ title: "هێڵی ئینتەرنێت پچڕا", body: "خەمت نەبێت، ئەپەکە بەبێ ئینتەرنێتیش بە باشی کار دەکات", icon: <Icons.WifiOff className="w-6 h-6"/> }); setTimeout(() => setToast(null), 5000); };
+                
+                window.addEventListener('online', handleOnline);
+                window.addEventListener('offline', handleOffline);
+                return () => { window.removeEventListener('online', handleOnline); window.removeEventListener('offline', handleOffline); };
+            }, []);
+
+            // Auto-category based on time
+            useEffect(() => {
+                const hour = time.getHours();
+                let suggestedCat = state.activeCategory;
+                
+                if (!localStorage.getItem('manual_cat_selection_today') || localStorage.getItem('manual_cat_selection_today') !== time.toLocaleDateString()) {
+                    if (hour >= 5 && hour < 11) suggestedCat = 'morning';
+                    else if (hour >= 16 && hour < 19) suggestedCat = 'evening';
+                    else if (hour >= 22 || hour < 4) suggestedCat = 'sleep';
+                    
+                    if(suggestedCat !== state.activeCategory) {
+                        setState(prev => ({ ...prev, activeCategory: suggestedCat }));
+                    }
+                }
+            }, [time.getHours()]);
+
+            useEffect(() => { localStorage.setItem('smart_tasbih_ramadan_v8_final', JSON.stringify(state)); }, [state]);
+
+            const playSound = () => {
+                if (!state.settings.sound) return;
+                try {
+                    const ctx = new (window.AudioContext || window.webkitAudioContext)();
+                    const osc = ctx.createOscillator();
+                    const gain = ctx.createGain();
+                    osc.connect(gain); gain.connect(ctx.destination);
+                    osc.type = 'sine'; osc.frequency.setValueAtTime(600, ctx.currentTime);
+                    gain.gain.setValueAtTime(0.05, ctx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.1);
+                    osc.start(); osc.stop(ctx.currentTime + 0.1);
+                } catch (e) {}
+            };
+
+            const triggerVibration = (isComplete = false) => {
+                if (!state.settings.vibration || !navigator.vibrate) return;
+                if (isComplete) navigator.vibrate([100, 50, 100]); // Double pulse when finished
+                else navigator.vibrate(15); // Normal click
+            };
+
+            const handleTap = useCallback((id, e = null) => {
+                if (e && e.clientX) {
+                    setClicks(prev => [...prev, { id: Date.now(), x: e.clientX, y: e.clientY }]);
+                    setTimeout(() => setClicks(prev => prev.slice(1)), 800);
+                }
+                
+                playSound();
+
+                setState(prev => {
+                    const zikr = prev.zikrs.find(z => z.id === id);
+                    if (!zikr || zikr.count >= zikr.target) return prev;
+                    
+                    const newCount = zikr.count + 1;
+                    const isComplete = newCount >= zikr.target;
+                    
+                    triggerVibration(isComplete);
+                    
+                    let newChallenge = prev.dailyChallenge;
+                    if (!newChallenge.completed) {
+                        newChallenge = { ...newChallenge, current: newChallenge.current + 1, completed: newChallenge.current + 1 >= newChallenge.target };
+                    }
+                    return {
+                        ...prev,
+                        diamonds: prev.diamonds + 10,
+                        dailyChallenge: newChallenge,
+                        zikrs: prev.zikrs.map(z => z.id === id ? { ...z, count: newCount } : z)
+                    };
+                });
+            }, [state.settings]);
+
+            const { zikrs, activeCategory, settings, diamonds, dailyChallenge } = state;
+
+            const sortedZikrs = useMemo(() => {
+                const list = zikrs.filter(z => z.category === activeCategory);
+                return [...list].sort((a, b) => {
+                    const aFinished = a.count >= a.target;
+                    const bFinished = b.count >= b.target;
+                    if (aFinished && !bFinished) return 1;
+                    if (!aFinished && bFinished) return -1;
+                    return a.id - b.id;
+                });
+            }, [zikrs, activeCategory]);
+
+            const currentTargetZikr = sortedZikrs.find(z => z.count < z.target);
+            
+            const isDarkMode = useMemo(() => {
+                if (activeCategory === 'morning' || activeCategory === 'favorites') return false;
+                if (activeCategory === 'evening' || activeCategory === 'sleep') return true;
+                if (activeCategory === 'ramadan') return time.getHours() >= 12;
+                return false;
+            }, [activeCategory, time]);
+
+            const getCategoryProgress = useCallback((catId) => {
+                const list = zikrs.filter(z => z.category === catId);
+                if (!list.length) return { percent: 0 };
+                const totalTarget = list.reduce((acc, curr) => acc + curr.target, 0);
+                const totalDone = list.reduce((acc, curr) => acc + curr.count, 0);
+                return { percent: Math.min(Math.round((totalDone / totalTarget) * 100), 100) };
+            }, [zikrs]);
+
+            const handleCategoryClick = (catId) => {
+                localStorage.setItem('manual_cat_selection_today', time.toLocaleDateString());
+                setState(prev => ({ ...prev, activeCategory: catId }));
+            };
+
+            return (
+                <div className={`relative h-screen w-full overflow-hidden font-sans flex flex-col transition-colors duration-700 ${isDarkMode ? 'dark bg-slate-900 text-white' : 'bg-[#F4F7FE] text-slate-800'}`} dir="rtl">
+                    
+                    {toast && <InAppToast title={toast.title} body={toast.body} icon={toast.icon} onClose={() => setToast(null)} />}
+
+                    {!isZenMode && !isPocketMode && (
+                        <header className="pt-2 pb-1 z-10 relative animate-fadeIn flex flex-col">
+                            <div className="flex justify-between items-center px-4 mb-2 mt-2">
+                                <button onClick={() => setShowMenu(true)} className={`p-2 rounded-2xl border backdrop-blur-sm shadow-sm active:scale-95 transition-transform ${isDarkMode ? 'bg-white/10 border-white/20 text-white' : 'bg-white/70 border-white text-slate-700'}`}><Icons.Menu className="w-5 h-5" /></button>
+                                <div className="flex items-center gap-1 mx-2">
+                                    <button onClick={() => setState(s => ({...s, settings: {...s.settings, sound: !s.settings.sound}}))} className={`w-9 h-9 rounded-full border border-current flex items-center justify-center transition-all ${settings.sound ? 'bg-white/20' : 'opacity-40'}`}>
+                                        {settings.sound ? <Icons.SoundOn className="w-4 h-4" /> : <Icons.SoundOff className="w-4 h-4" />}
+                                    </button>
+                                </div>
+                                <div className={`flex items-center gap-1.5 px-3 py-1.5 rounded-2xl border backdrop-blur-md shadow-sm ${isDarkMode ? 'bg-white/5 border-white/10' : 'bg-white/70 border-white'}`}><Icons.Diamond className="w-4 h-4 text-sky-400" /><span className="font-mono font-bold text-xs tracking-wider">{diamonds.toLocaleString()}</span></div>
+                            </div>
+                            
+                            <div className="w-full flex justify-between gap-1 px-3 overflow-x-auto no-scrollbar mt-4">
+                                {CATEGORIES.map((cat) => {
+                                    const percent = getCategoryProgress(cat.id).percent;
+                                    const isActive = activeCategory === cat.id;
+                                    return (
+                                        <button key={cat.id} onClick={() => handleCategoryClick(cat.id)} className={`flex-1 min-w-[50px] py-1.5 rounded-xl transition-all relative flex flex-col items-center justify-center overflow-hidden h-14 group ${isActive ? 'ring-2 ring-white/50 shadow-sm z-10 bg-white dark:bg-slate-700' : 'bg-white/40 dark:bg-white/5'}`}>
+                                            <div className={`absolute bottom-0 left-0 right-0 transition-all duration-700 ease-out ${cat.fillClass} ${percent === 100 ? 'opacity-100' : 'opacity-80'}`} style={{ height: `${percent}%` }}></div>
+                                            <div className="relative z-10 flex flex-col items-center gap-0.5">
+                                                <div className={`relative ${isActive ? (isDarkMode ? 'text-white' : cat.textColor) : 'text-slate-500'}`}>{React.cloneElement(cat.icon, { className: "w-5 h-5" })}{percent === 100 && (<div className="absolute -top-1 -right-1 bg-green-500 text-white rounded-full p-[1px]"><Icons.Check className="w-1.5 h-1.5" strokeWidth={4} /></div>)}</div>
+                                                <span className={`text-[11px] font-medium leading-none ${isActive ? (isDarkMode ? 'text-white' : cat.textColor) : 'text-slate-500'}`}>{cat.label}</span>
+                                            </div>
+                                        </button>
+                                    );
+                                })}
+                            </div>
+                        </header>
+                    )}
+
+                    {!isZenMode && !isPocketMode && (
+                        <main className="flex-1 overflow-y-auto px-5 pb-56 pt-3 gap-3 no-scrollbar z-0 mask-gradient flex flex-col animate-fadeIn">
+                            {sortedZikrs.map((zikr) => {
+                                const isFinished = zikr.count >= zikr.target;
+                                const isActive = currentTargetZikr && currentTargetZikr.id === zikr.id;
+                                return (
+                                    <button key={zikr.id} onClick={(e) => handleTap(zikr.id, e)} disabled={isFinished} className={`w-full text-right relative rounded-[20px] p-5 transition-all duration-200 flex items-center justify-between group border-2 active:scale-95 ${isFinished ? `opacity-50 grayscale scale-[0.98] ${isDarkMode ? 'bg-slate-800/20 border-transparent' : 'bg-white/40 border-transparent'} order-last` : isActive ? `${isDarkMode ? 'bg-slate-800 border-amber-500 shadow-lg shadow-amber-900/20' : 'bg-white border-amber-500 shadow-lg shadow-amber-100'} scale-[1.02] z-10` : `${isDarkMode ? 'bg-slate-800/40 border-transparent hover:bg-slate-800' : 'bg-white/60 border-transparent hover:bg-white shadow-sm'}`}`}>
+                                        <div className="flex-1 pl-4">
+                                            <h3 className={`font-medium mb-2 font-arabic leading-relaxed whitespace-pre-wrap ${isActive ? (isDarkMode ? 'text-amber-300' : 'text-amber-600') : ''}`} style={{fontSize: `${1.125 * (settings.fontSize || 1)}rem`}}>{zikr.text}</h3>
+                                            <p className="text-[10px] opacity-60 font-medium tracking-wide">{zikr.virtue}</p>
+                                        </div>
+                                        <div className="relative shrink-0"><div className={`w-10 h-10 rounded-full flex items-center justify-center text-xs font-bold border-[3px] transition-all ${isFinished ? 'border-green-500 bg-green-500 text-white' : isActive ? `border-amber-400 ${isDarkMode ? 'text-white' : 'text-amber-600'}` : 'border-transparent bg-gray-500/10 opacity-50'}`}>{isFinished ? <Icons.Check className="w-4 h-4" /> : zikr.target - zikr.count}</div></div>
+                                    </button>
+                                );
+                            })}
+                        </main>
+                    )}
+
+                    <div className={`transition-all duration-700 fixed bottom-0 left-0 w-full z-30 pt-4 pb-8 flex justify-center items-end bg-gradient-to-t ${isDarkMode ? 'from-slate-900 via-slate-900/90 to-transparent' : 'from-[#F4F7FE] via-[#F4F7FE]/90 to-transparent'}`}>
+                        {currentTargetZikr && (
+                            <div className="relative mb-2 flex flex-col items-center">
+                                <button onClick={(e) => { e.preventDefault(); handleTap(currentTargetZikr.id, e); }} className={`group relative w-36 h-36 rounded-full flex items-center justify-center active:scale-95 transition-all duration-200 outline-none select-none touch-manipulation`} style={{ WebkitTapHighlightColor: 'transparent' }}>
+                                    <div className={`absolute inset-0 rounded-full blur-2xl opacity-40 group-hover:opacity-60 transition-opacity duration-500 bg-gradient-to-tr ${currentTargetZikr.color} animate-glow`}></div>
+                                    <div className={`absolute inset-2 rounded-full ${isDarkMode ? 'bg-slate-800' : 'bg-white'} shadow-inner`}></div>
+                                    <div className="absolute inset-0 rounded-full pointer-events-none" style={{ background: `conic-gradient(transparent ${(1 - (currentTargetZikr.count / currentTargetZikr.target)) * 360}deg, currentColor 0deg)`, color: 'transparent' }}><div className={`absolute inset-0 rounded-full bg-gradient-to-tr ${currentTargetZikr.color}`} style={{ maskImage: `conic-gradient(black 0deg, black ${(currentTargetZikr.count / currentTargetZikr.target) * 360}deg, transparent ${(currentTargetZikr.count / currentTargetZikr.target) * 360}deg)`, WebkitMaskImage: `conic-gradient(black 0deg, black ${(currentTargetZikr.count / currentTargetZikr.target) * 360}deg, transparent ${(currentTargetZikr.count / currentTargetZikr.target) * 360}deg)` }}></div></div>
+                                    <div className={`absolute inset-4 rounded-full flex flex-col items-center justify-center shadow-lg pointer-events-none ${isDarkMode ? 'bg-slate-900' : 'bg-gray-50'}`}><span className={`text-5xl font-black font-mono tracking-tighter bg-clip-text text-transparent bg-gradient-to-br ${currentTargetZikr.color}`}>{currentTargetZikr.count}</span></div>
+                                </button>
+                            </div>
+                        )}
+                    </div>
+
+                    <div className="absolute inset-0 pointer-events-none z-[80] overflow-hidden">{clicks.map(click => (<div key={click.id} className="absolute text-3xl animate-floatUp drop-shadow-md" style={{ left: click.x, top: click.y }}>💎</div>))}</div>
+
+                    {showMenu && (
+                         <div className="fixed inset-0 z-[100] bg-black/60 backdrop-blur-sm flex items-end sm:items-center justify-center p-4 transition-opacity animate-fadeIn" onClick={() => setShowMenu(false)}>
+                             <div className={`w-full max-w-md max-h-[85vh] overflow-y-auto rounded-[32px] shadow-2xl p-6 transition-transform animate-scaleUp ${isDarkMode ? 'bg-slate-900 border border-white/10 text-white' : 'bg-white'}`} onClick={e => e.stopPropagation()}>
+                                 <div className="flex items-center justify-between mb-6">
+                                     <h2 className="text-2xl font-black">مێنیو</h2>
+                                     <button onClick={() => setShowMenu(false)} className={`p-2 rounded-full ${isDarkMode ? 'bg-slate-800 text-white' : 'bg-gray-100'}`}><Icons.Close className="w-6 h-6"/></button>
+                                 </div>
+                                 <div className="space-y-4">
+                                     <button onClick={() => { if(confirm('ئایا دڵنیایت بۆ سڕینەوە؟')) { localStorage.clear(); window.location.reload(); } }} className="w-full p-4 rounded-2xl flex items-center gap-3 text-red-500 bg-red-50 dark:bg-red-900/20">
+                                         <div className="p-2 bg-red-100 dark:bg-red-900/30 rounded-full"><Icons.Trash className="w-5 h-5" /></div>
+                                         <span className="font-bold">سڕینەوەی هەموو داتا</span>
+                                     </button>
+                                 </div>
+                             </div>
+                          </div>
+                    )}
+                </div>
+            );
+        }
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<SmartTasbihRamadan />);
+    </script>
+
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./sw.js')
+                    .then(registration => {
+                        console.log('سێرڤس وۆرکەر بە سەرکەوتوویی کارا کرا:', registration.scope);
+                    })
+                    .catch(error => {
+                        console.log('کێشە هەیە لە کاراکردنی سێرڤس وۆرکەر:', error);
+                    });
+            });
+        }
+    </script>
+</body>
+</html>
